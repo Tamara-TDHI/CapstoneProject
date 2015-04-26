@@ -97,7 +97,7 @@ test <- function(yourtext)
       found = '1'
     }
     else {
-      prediction_word ='could not find'
+      prediction_word ='the'
     }
   }
 
@@ -110,9 +110,6 @@ test <- function(yourtext)
 shinyServer(
   function(input,output){
     output$yourtext <- renderPrint({input$yourtext})
-#    output$status <- renderPrint({input$status})
-#    output$soort <- renderPrint({input$soort})
-#    output$norepeat <- renderPrint({input$norepeat})
     
     output$prediction <- renderPrint({test(input$yourtext)})
   }
