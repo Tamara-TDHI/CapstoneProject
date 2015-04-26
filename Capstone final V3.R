@@ -7,7 +7,6 @@ par(mfrow=c(1,1))
 
 require(tm)
 require(SnowballC)
-
 # Material is already downloaded, for performance reasons no need to do this
 # again
 
@@ -122,41 +121,57 @@ QuintoGramTokenizer <- function(x) NGramTokenizer(x, Weka_control(min = 5, max =
 
 dtm5 = DocumentTermMatrix(en_US.document, control = list(tokenize = QuintoGramTokenizer))
 dtm4 = DocumentTermMatrix(en_US.document, control = list(tokenize = QuatroGramTokenizer))
-dtm3 = DocumentTermMatrix(en_US.document, control = list(tokenize = BiGramTokenizer))
-dtm2 = DocumentTermMatrix(en_US.document, control = list(tokenize = TriGramTokenizer))
+dtm3 = DocumentTermMatrix(en_US.document, control = list(tokenize = TriGramTokenizer))
+dtm2 = DocumentTermMatrix(en_US.document, control = list(tokenize = BiGramTokenizer))
 
 
-dtm2Sparse = removeSparseTerms(dtm2, 0.999)
-dtm3Sparse = removeSparseTerms(dtm3, 0.9996)
-dtm4Sparse = removeSparseTerms(dtm4, 0.99996)
-dtm5Sparse = removeSparseTerms(dtm5, 0.99998)
+#dtm2Sparse = removeSparseTerms(dtm2, 0.9996)
+#dtm3Sparse = removeSparseTerms(dtm3, 0.9996)
+#dtm4Sparse = removeSparseTerms(dtm4, 0.99996)
+#dtm5Sparse = removeSparseTerms(dtm5, 0.99998)
 
-dim(dtm2)
-dim(dtm2Sparse)
+#dim(dtm2)
+#dim(dtm2Sparse)
 
-dim(dtm3)
-dim(dtm3Sparse)
+dtm2freq = findFreqTerms(dtm2, lowfreq = 20, highfreq = Inf)
+length(dtm2freq)
+dtmx2ColSums = colSums(as.data.frame(as.matrix(dtm2[,dtm2freq])))
 
-dim(dtm4)
-dim(dtm4Sparse)
+dtm3freq = findFreqTerms(dtm3, lowfreq = 10, highfreq = Inf)
+length(dtm3freq)
+dtmx3ColSums = colSums(as.data.frame(as.matrix(dtm3[,dtm3freq])))
 
-dim(dtm5)
-dim(dtm5Sparse)
+dtm4freq = findFreqTerms(dtm4, lowfreq = 20, highfreq = Inf)
+length(dtm4freq)
+dtmx4ColSums = colSums(as.data.frame(as.matrix(dtm4[,dtm4freq])))
 
-dtmx2 = as.data.frame(as.matrix(dtm2Sparse))
-dtmx2ColSums = colSums(dtmx2)
+dtm5freq = findFreqTerms(dtm5, lowfreq = 20, highfreq = Inf)
+length(dtm5freq)
+dtmx5ColSums = colSums(as.data.frame(as.matrix(dtm5[,dtm5freq])))
 
-dtmx3 = as.data.frame(as.matrix(dtm3Sparse))
-dtmx3ColSums = colSums(dtmx3)
+#dim(dtm3)
+#dim(dtm3Sparse)
 
-dtmx4 = as.data.frame(as.matrix(dtm4Sparse))
-dtmx4ColSums = colSums(dtmx4)
+#dim(dtm4)
+#dim(dtm4Sparse)
 
-dtmx5 = as.data.frame(as.matrix(dtm5Sparse))
-dtmx5ColSums = colSums(dtmx5)
+#dim(dtm5)
+#dim(dtm5Sparse)
+
+#dtmx2 = as.data.frame(as.matrix(dtm2Sparse))
+#dtmx2ColSums = colSums(dtmx2)
+
+#dtmx3 = as.data.frame(as.matrix(dtm3Sparse))
+#dtmx3ColSums = colSums(dtmx3)
+
+#dtmx4 = as.data.frame(as.matrix(dtm4Sparse))
+#dtmx4ColSums = colSums(dtmx4)
+
+#dtmx5 = as.data.frame(as.matrix(dtm5Sparse))
+#dtmx5ColSums = colSums(dtmx5)
 
 #bigrams = as.data.frame(dtmx2ColSums)
-bigrams = dtmx2ColSums
+bigrams = as.data.frame(dtmx2ColSums)
 bigrams$word2 = names(dtmx2ColSums)
 bigrams <- bigrams[order(-bigrams$dtmx2ColSums),]
 save(bigrams, file="bigrams.Rda")
@@ -175,12 +190,4 @@ quintograms = as.data.frame(dtmx5ColSums)
 quintograms$word5 = names(dtmx5ColSums)
 quintograms <- quintograms[order(-quintograms$dtmx5ColSums),]
 save(quintograms, file="quintograms.Rda")
-
-
-
-
-
-
-
-
 

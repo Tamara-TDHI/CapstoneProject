@@ -2,10 +2,10 @@ library(shiny)
 #setwd("C:/Coursera/Developing Data Products")
 shinyUI(pageWithSidebar(
   # Application title
-  headerPanel("XXXXX"),
+  headerPanel("The next word - prediction app"),
   sidebarPanel(
-    h3('YYYY'),
-    p('ZZZZZ'),
+    h3('Your input here'),
+    p('You enter a words or a partial sentence, and we will predict the next word'),
     textInput('yourtext','please type your text'),
   # numericInput('transactiewaarde','Average Transaction Value',
   #               0, min = 0, step=10),
@@ -21,9 +21,9 @@ shinyUI(pageWithSidebar(
     submitButton('Submit')
   ),
   mainPanel(
-    h3('AAAA'),
-    h4('BBBBB - you entered:'),
-    verbatimTextOutput('transactiewaarde'),
+    h3('You entered'),
+    h4('The input you entered:'),
+    verbatimTextOutput('yourtext'),
   #  h4('CCCC - you entered:'),
   #  verbatimTextOutput('norepeat'),
   #  h4('Status - you entered:'),
@@ -31,7 +31,7 @@ shinyUI(pageWithSidebar(
   #  h4('Type - you entered:'),
   #  verbatimTextOutput('soort'),
     
-    h3('EEEEEEE'),
+    h3('Our prediction of the next word'),
     verbatimTextOutput('prediction')
   )
 ))
