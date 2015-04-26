@@ -3,3 +3,5 @@ This project is the capstone project in the data science track of Coursera / Joh
 
 The R script reads in the data and makes preparations. Then 4 files are saved. 
 These files will be used in an app on shiny. 
+
+Some documentation can be found here: http://rpubs.com/Tamara_TDHI/77337 
